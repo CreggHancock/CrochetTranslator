@@ -4,7 +4,8 @@
   "version": "1.0",
   "description": "Translates crochet terminology between UK and US terms.",
   "icons": {
-    "48": "icons/border-48.png"
+    "48": "icons/yarnball48.png",
+    "128": "icons/yarnball128.png"
   },
   "background": {
     "scripts": [
