@@ -23,13 +23,9 @@ function translateBlock(block) {
 }
 
 function translateReceiver(request, sender, sendResponse) {
-  console.log("Translate receiver called");
-  console.log("window selection", window.getSelection());
-  console.log("document selection", document.getSelection());
   const selection = window.getSelection();
   if (selection && selection.anchorNode) {
     const translatedText = translateBlock(selection.anchorNode.textContent);
-    console.log("translating to: ", translatedText);
     selection.anchorNode.textContent = translatedText;
   }
 }
