@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "Crochet Translator",
+  "version": "1.0",
+  "description": "Translates crochet terminology between UK and US terms.",
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+  "background": {
+    "scripts": [
+        "crochetTranslator.js"
+    ]
+  },
+  "permissions":["activeTab","contextMenus"]
+}
