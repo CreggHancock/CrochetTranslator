@@ -1,16 +1,22 @@
 const translations = [
+  ["ss", "sl st"],
   ["dc", "sc"],
   ["htr", "hdc"],
   ["tr", "dc"],
   ["hdtr", "htr"],
   ["dtr", "tr"],
   ["trtr", "dtr"],
+  ["ttr", "dtr"],
+  ["fptr", "fpdc"],
+  ["bptr", "bpdc"],
   ["double crochet", "single crochet"],
   ["half treble crochet", "half double crochet"],
-  ["treble crochet", "double crochet"],
   ["half double treble crochet", "half triple/treble crochet"],
   ["double treble crochet", "triple/treble crochet"],
   ["triple treble crochet", "double triple/treble crochet"],
+  ["front post treble crochet", "front post double crochet"],
+  ["back post treble crochet", "back post double crochet"],
+  ["treble crochet", "double crochet"],
 ];
 
 function translateBlock(block, sourceIndex, destinationIndex) {
@@ -32,7 +38,12 @@ function translateNode(selection, node, sourceIndex, destinationIndex) {
   if (selection.containsNode(node, true)) {
     if (node.hasChildNodes()) {
       for (let i = 0; i < node.childNodes.length; i++) {
-        translateNode(selection, node.childNodes[i], sourceIndex, destinationIndex);
+        translateNode(
+          selection,
+          node.childNodes[i],
+          sourceIndex,
+          destinationIndex,
+        );
       }
     } else {
       node.textContent = translateBlock(
