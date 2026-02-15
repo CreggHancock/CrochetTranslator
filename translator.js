@@ -28,20 +28,36 @@ function translateBlock(block, sourceIndex, destinationIndex) {
   return block;
 }
 
+function translateNode(selection, node, sourceIndex, destinationIndex) {
+  if (selection.containsNode(node, true)) {
+    if (node.hasChildNodes()) {
+      for (let i = 0; i < node.childNodes.length; i++) {
+        translateNode(selection, node.childNodes[i], sourceIndex, destinationIndex);
+      }
+    } else {
+      node.textContent = translateBlock(
+        node.textContent,
+        sourceIndex,
+        destinationIndex,
+      );
+    }
+  }
+}
+
 function translateReceiver(request, _sender, _sendResponse) {
   const selection = window.getSelection();
-  let translatedText = selection.anchorNode.textContent;
-  if (selection && selection.anchorNode) {
-    switch (request.translateTo) {
-      case "US":
-        translatedText = translateBlock(selection.anchorNode.textContent, 0, 1);
-        break;
-      case "UK":
-        translatedText = translateBlock(selection.anchorNode.textContent, 1, 0);
-        break;
+  if (selection) {
+    for (let i = 0; i < selection.rangeCount; i++) {
+      let commonAncestor = selection.getRangeAt(i).commonAncestorContainer;
+      switch (request.translateTo) {
+        case "US":
+          translateNode(selection, commonAncestor, 0, 1);
+          break;
+        case "UK":
+          translateNode(selection, commonAncestor, 1, 0);
+          break;
+      }
     }
-
-    selection.anchorNode.textContent = translatedText;
   }
 }
 
