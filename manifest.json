@@ -9,8 +9,9 @@
   },
   "background": {
     "scripts": [
-        "crochetTranslator.js"
-    ]
+        "background.js"
+    ],
+    "persistent": false
   },
   "permissions":["activeTab","contextMenus"]
 }

@@ -13,19 +13,34 @@ const translations = [
   ["triple treble crochet", "double triple/treble crochet"],
 ];
 
-function translateBlock(block) {
-  for (let i=0; i< translations.length; i++) {
-    let translationRegex = new RegExp(`(?<!\\w)${translations[i][0]}(?!\\w)`, 'g');
-    block = block.replaceAll(translationRegex, translations[i][1]);
+function translateBlock(block, sourceIndex, destinationIndex) {
+  for (let i = 0; i < translations.length; i++) {
+    let translationRegex = new RegExp(
+      `(?<!\\w)${translations[i][sourceIndex]}(?!\\w)`,
+      "g",
+    );
+    block = block.replaceAll(
+      translationRegex,
+      translations[i][destinationIndex],
+    );
   }
 
-  return block
+  return block;
 }
 
-function translateReceiver(request, sender, sendResponse) {
+function translateReceiver(request, _sender, _sendResponse) {
   const selection = window.getSelection();
+  let translatedText = selection.anchorNode.textContent;
   if (selection && selection.anchorNode) {
-    const translatedText = translateBlock(selection.anchorNode.textContent);
+    switch (request.translateTo) {
+      case "US":
+        translatedText = translateBlock(selection.anchorNode.textContent, 0, 1);
+        break;
+      case "UK":
+        translatedText = translateBlock(selection.anchorNode.textContent, 1, 0);
+        break;
+    }
+
     selection.anchorNode.textContent = translatedText;
   }
 }
